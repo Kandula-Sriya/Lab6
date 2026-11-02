@@ -20,7 +20,7 @@ Docker Desktop is installed on Windows with the WSL 2 backend.
 FROM node:lts-alpine
 WORKDIR /app
 COPY . .
-RUN yarn install --production
+RUN npm ci --omit=dev
 CMD ["node", "src/index.js"]
 EXPOSE 3000
 ```

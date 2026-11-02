@@ -10,8 +10,10 @@ WORKDIR /app
 # Copy the project source into the image
 COPY . .
 
-# Install only production dependencies
-RUN yarn install --production
+# Install only production dependencies.
+# Newer node:lts-alpine images no longer bundle yarn, so npm is used
+# with the committed package-lock.json (equivalent to yarn install --production).
+RUN npm ci --omit=dev
 
 # Start the app
 CMD ["node", "src/index.js"]
