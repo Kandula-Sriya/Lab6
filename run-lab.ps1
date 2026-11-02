@@ -11,9 +11,13 @@ docker rm -f todo-app 2>$null
 docker run -d --name todo-app -p 127.0.0.1:3000:3000 getting-started
 
 Write-Host "== Pulling and starting MySQL on port 3306 =="
-docker pull mysql
-docker rm -f some-mysql 2>$null
-docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -p 3306:3306 -d mysql:latest
+if (-not (docker ps -a -q -f name=^some-mysql$)) {
+    docker pull mysql
+    docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -p 3306:3306 -d mysql:latest
+} else {
+    docker start some-mysql | Out-Null
+    Write-Host "some-mysql already exists - started it."
+}
 
 docker ps
 Write-Host "Done. Open http://localhost:3000 and connect MySQL Workbench to 127.0.0.1:3306 (root / my-secret-pw)."

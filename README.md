@@ -47,19 +47,26 @@ A connection to the container is made with these settings:
 - Username: `root`
 - Password: the `MYSQL_ROOT_PASSWORD` from the run command
 
+Note: this PC also has a native MySQL 9.2 install. The connection screenshot shows the container ID as the server hostname, confirming the Docker server is the one answering on port 3306.
+
 ## Screenshots
 
-### Docker Desktop – containers running
-![Docker Desktop containers](screenshots/docker-desktop-containers.png)
-
-### Docker Desktop – images
-![Docker Desktop images](screenshots/docker-desktop-images.png)
-
-### Todo app running from the built image
-![Todo app](screenshots/todo-app-localhost-3000.png)
+### Docker Desktop – MySQL container running (port 3306:3306)
+![Docker Desktop MySQL container](screenshots/docker-desktop-mysql-container.png)
 
 ### MySQL Workbench connected to the MySQL container
+The query `SELECT @@hostname` returns `7380e85277c0`, which is the Docker container ID – proving Workbench is talking to the MySQL server inside the container through the mapped port 3306.
+
 ![MySQL Workbench](screenshots/mysql-workbench-connected.png)
+
+### Docker Desktop – both containers running (todo app + MySQL)
+![Docker Desktop containers](screenshots/docker-desktop-containers.png)
+
+### Docker Desktop – images (getting-started built from the Dockerfile, mysql pulled)
+![Docker Desktop images](screenshots/docker-desktop-images.png)
+
+### Todo app running from the built image at http://localhost:3000
+![Todo app](screenshots/todo-app-localhost-3000.png)
 
 ## Key concepts
 - **Virtual machine vs. container:** a VM virtualizes hardware and runs a full guest OS; a container shares the host kernel and packages only the app and its dependencies, so it is lighter and starts in seconds.
